@@ -7,7 +7,12 @@ namespace WebApi.Jwt
 {
     public static class JwtManager
     {
-        private const string Secret = "856FECBA3B06519C8DDDBC80BB080553"; // your symetric
+        /// <summary>
+        /// Use the below code to generate symmetric Secret Key
+        ///     var hmac = new HMACSHA256();
+        ///     var key = Convert.ToBase64String(hmac.Key);
+        /// </summary>
+        private const string Secret = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
 
         public static string GenerateToken(string username, int expireMinutes = 20)
         {

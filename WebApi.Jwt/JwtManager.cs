@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
-using System.Web;
-using System.Web.UI.WebControls;
 using Microsoft.IdentityModel.Tokens;
 
 namespace WebApi.Jwt
 {
     public static class JwtManager
     {
-        public const string Secret = "856FECBA3B06519C8DDDBC80BB080553"; // your symetric
+        private const string Secret = "856FECBA3B06519C8DDDBC80BB080553"; // your symetric
 
         public static string GenerateToken(string username, int expireMinutes = 20)
         {

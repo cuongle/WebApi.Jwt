@@ -5,7 +5,7 @@ namespace WebApi.Jwt.Controllers
 {
     public class TokenController : ApiController
     {
-        // THis is naive endpoint for demo, it should use Basic authentication to provdie token or POST request
+        // THis is naive endpoint for demo, it should use Basic authentication to provide token or POST request
         [AllowAnonymous]
         public string Get(string username, string password)
         {

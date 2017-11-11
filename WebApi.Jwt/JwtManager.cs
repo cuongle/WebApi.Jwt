@@ -58,8 +58,7 @@ namespace WebApi.Jwt
                    IssuerSigningKey = new SymmetricSecurityKey(symmetricKey)
                 };
 
-                SecurityToken securityToken;
-                var principal = tokenHandler.ValidateToken(token, validationParameters, out securityToken);
+                var principal = tokenHandler.ValidateToken(token, validationParameters, out _);
 
                 return principal;
             }

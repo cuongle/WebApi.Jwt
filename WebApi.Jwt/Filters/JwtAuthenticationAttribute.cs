@@ -44,7 +44,7 @@ namespace WebApi.Jwt.Filters
             username = null;
 
             var simplePrinciple = JwtManager.GetPrincipal(token);
-            var identity = simplePrinciple.Identity as ClaimsIdentity;
+            var identity = simplePrinciple?.Identity as ClaimsIdentity;
 
             if (identity == null)
                 return false;

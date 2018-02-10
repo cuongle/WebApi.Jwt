@@ -18,27 +18,20 @@ namespace WebApi.Jwt.Filters
             var request = context.Request;
             var authorization = request.Headers.Authorization;
 
-            if (authorization == null || authorization.Scheme != "Bearer")
-                return;
-
-            if (string.IsNullOrEmpty(authorization.Parameter))
-            {
-                context.ErrorResult = new AuthenticationFailureResult("Missing Jwt Token", request);
-                return;
-            }
+			if (authorization == null || string.IsNullOrEmpty(authorization.Parameter) || !authorization.Scheme.Equals("bearer", StringComparison.OrdinalIgnoreCase))
+			{
+				context.ErrorResult = new AuthenticationFailureResult("Missing Jwt Token", request);
+				return;
+			}
 
             var token = authorization.Parameter;
             var principal = await AuthenticateJwtToken(token);
 
             if (principal == null)
                 context.ErrorResult = new AuthenticationFailureResult("Invalid token", request);
-
             else
                 context.Principal = principal;
         }
-
-
-
         private static bool ValidateToken(string token, out string username)
         {
             username = null;

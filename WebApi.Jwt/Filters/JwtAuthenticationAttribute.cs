@@ -37,8 +37,6 @@ namespace WebApi.Jwt.Filters
                 context.Principal = principal;
         }
 
-
-
         private static bool ValidateToken(string token, out string username)
         {
             username = null;

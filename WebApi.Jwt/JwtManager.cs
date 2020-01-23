@@ -28,7 +28,7 @@ namespace WebApi.Jwt
                         }),
 
                 Expires = now.AddMinutes(Convert.ToInt32(expireMinutes)),
-                
+
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(symmetricKey), SecurityAlgorithms.HmacSha256Signature)
             };
 
@@ -52,14 +52,13 @@ namespace WebApi.Jwt
 
                 var validationParameters = new TokenValidationParameters()
                 {
-                   RequireExpirationTime = true,
-                   ValidateIssuer = false,
-                   ValidateAudience = false,
-                   IssuerSigningKey = new SymmetricSecurityKey(symmetricKey)
+                    RequireExpirationTime = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(symmetricKey)
                 };
 
-                SecurityToken securityToken;
-                var principal = tokenHandler.ValidateToken(token, validationParameters, out securityToken);
+                var principal = tokenHandler.ValidateToken(token, validationParameters, out _);
 
                 return principal;
             }

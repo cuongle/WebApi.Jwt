@@ -23,13 +23,16 @@ namespace WebApi.Jwt
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
-                        {
-                            new Claim(ClaimTypes.Name, username)
-                        }),
+                {
+                    new Claim(ClaimTypes.Name, username)
+                }),
 
                 Expires = now.AddMinutes(Convert.ToInt32(expireMinutes)),
-                
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(symmetricKey), SecurityAlgorithms.HmacSha256Signature)
+
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(symmetricKey),
+                    SecurityAlgorithms.HmacSha256Signature
+                )
             };
 
             var stoken = tokenHandler.CreateToken(tokenDescriptor);
@@ -52,10 +55,10 @@ namespace WebApi.Jwt
 
                 var validationParameters = new TokenValidationParameters()
                 {
-                   RequireExpirationTime = true,
-                   ValidateIssuer = false,
-                   ValidateAudience = false,
-                   IssuerSigningKey = new SymmetricSecurityKey(symmetricKey)
+                    RequireExpirationTime = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(symmetricKey)
                 };
 
                 var principal = tokenHandler.ValidateToken(token, validationParameters, out _);

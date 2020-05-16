@@ -38,7 +38,6 @@ namespace WebApi.Jwt.Filters
         }
 
 
-
         private static bool ValidateToken(string token, out string username)
         {
             username = null;
@@ -65,9 +64,7 @@ namespace WebApi.Jwt.Filters
 
         protected Task<IPrincipal> AuthenticateJwtToken(string token)
         {
-            string username;
-
-            if (ValidateToken(token, out username))
+            if (ValidateToken(token, out var username))
             {
                 // based on username to get more information from database in order to build local identity
                 var claims = new List<Claim>

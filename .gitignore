@@ -151,3 +151,6 @@ dump.rdb
 
 # GhostDoc
 *.GhostDoc.xml
+
+
+.idea/

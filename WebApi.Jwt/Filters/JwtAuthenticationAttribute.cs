@@ -18,8 +18,10 @@ namespace WebApi.Jwt.Filters
             var request = context.Request;
             var authorization = request.Headers.Authorization;
 
-            if (authorization == null || authorization.Scheme != "Bearer")
+            if (authorization == null || authorization.Scheme != "Bearer") {
+                context.ErrorResult = new AuthenticationFailureResult("Missing Authorization",request);
                 return;
+            }
 
             if (string.IsNullOrEmpty(authorization.Parameter))
             {

@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Http;
 using System.Web.Http.Filters;
 
 namespace WebApi.Jwt.Filters
@@ -18,10 +19,11 @@ namespace WebApi.Jwt.Filters
             var request = context.Request;
             var authorization = request.Headers.Authorization;
 
-            if (authorization == null || authorization.Scheme != "Bearer")
+            if (context.ActionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Count > 0
+                || context.ActionContext.ActionDescriptor.ControllerDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Count > 0)
                 return;
 
-            if (string.IsNullOrEmpty(authorization.Parameter))
+            if (authorization == null || string.IsNullOrEmpty(authorization.Parameter) || !authorization.Scheme.Equals("bearer", StringComparison.OrdinalIgnoreCase))
             {
                 context.ErrorResult = new AuthenticationFailureResult("Missing Jwt Token", request);
                 return;
